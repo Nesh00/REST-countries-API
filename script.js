@@ -70,10 +70,10 @@ const getAllCountries = async function () {
   }
 };
 
-const getCountryByRegion = async function (region) {
+const getCountryByRegion = async function (countryRegion) {
   try {
     const response = await fetch(
-      `https://restcountries.eu/rest/v2/region/${region}`
+      `https://restcountries.eu/rest/v2/region/${countryRegion}`
     );
 
     if (!response.ok) return;
@@ -115,7 +115,9 @@ region.addEventListener('change', function (event) {
 
 // Search-Bar EVENT
 searchBar.addEventListener('keyup', function (e) {
-  getCountryByName(e.target.value);
+  e.target.value.length === 0
+    ? getAllCountries()
+    : getCountryByName(e.target.value);
 });
 
 // INIT
