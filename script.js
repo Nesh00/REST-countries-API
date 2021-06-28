@@ -5,6 +5,7 @@ const themeImg = document.querySelector('.theme-img');
 const themeText = document.querySelector('.text-theme-color');
 const countriesContainer = document.querySelector('.countries');
 const region = document.querySelector('.select-region');
+const searchBar = document.querySelector('.search-bar');
 
 // Color theme
 const changeThemeBtn = function () {
@@ -23,11 +24,10 @@ const setTheme = function (themeName) {
 };
 
 const toggleTheme = function () {
-  if (localStorage.getItem('theme') === 'theme-dark') {
-    setTheme('theme-light');
-  } else {
-    setTheme('theme-dark');
-  }
+  localStorage.getItem('theme') === 'theme-dark'
+    ? setTheme('theme-light')
+    : setTheme('theme-dark');
+
   changeThemeBtn();
 };
 
@@ -70,17 +70,17 @@ const getAllCountries = async function () {
   }
 };
 
-const getCountryByRegion = async function (countryRegion) {
+const getCountryByRegion = async function (region) {
   try {
     const response = await fetch(
-      `https://restcountries.eu/rest/v2/region/${countryRegion}`
+      `https://restcountries.eu/rest/v2/region/${region}`
     );
 
     if (!response.ok) return;
-    const dataCountry = await response.json();
+    const data = await response.json();
 
     countriesContainer.textContent = '';
-    dataCountry.forEach(country => {
+    data.forEach(country => {
       renderCountry(country);
     });
   } catch {
@@ -88,22 +88,42 @@ const getCountryByRegion = async function (countryRegion) {
   }
 };
 
+const getCountryByName = async function (countryName) {
+  try {
+    const response = await fetch(
+      `https://restcountries.eu/rest/v2/name/${countryName}`
+    );
+
+    if (!response.ok) return;
+    const data = await response.json();
+
+    countriesContainer.textContent = '';
+    data.forEach(country => {
+      renderCountry(country);
+    });
+  } catch {
+    console.log('error');
+  }
+};
+
 // Select Options EVENT
 region.addEventListener('change', function (event) {
-  if (event.target.value === 'All') {
-    getAllCountries();
-  } else {
-    getCountryByRegion(event.target.value);
-  }
+  event.target.value === 'All'
+    ? getAllCountries()
+    : getCountryByRegion(event.target.value);
 });
 
-// Init
+// Search-Bar EVENT
+searchBar.addEventListener('keyup', function (e) {
+  getCountryByName(e.target.value);
+});
+
+// INIT
 (function onloadDisplay() {
-  if (localStorage.getItem('theme') === 'theme-dark') {
-    setTheme('theme-dark');
-  } else {
-    setTheme('theme-light');
-  }
+  localStorage.getItem('theme') === 'theme-dark'
+    ? setTheme('theme-dark')
+    : setTheme('theme-light');
+
   changeThemeBtn();
   getAllCountries();
 })();
