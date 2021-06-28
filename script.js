@@ -106,7 +106,7 @@ const getCountryByName = async function (countryName) {
   }
 };
 
-// Select Options EVENT
+// Select-options EVENT
 region.addEventListener('change', function (event) {
   event.target.value === 'All'
     ? getAllCountries()
