@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>REST Countries API</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      defer
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      defer
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <nav>
+      <h1 class="nav-header">Where in the World</h1>
+      <div class="theme-container">
+        <a href="#" class="btn-theme-color"
+          ><ion-icon class="theme-img" name="moon"></ion-icon
+        ></a>
+        <div href="#" class="text-theme-color">Light Mode</div>
+      </div>
+    </nav>
+    <main>
+      <section class="search-container">
+        <div class="search">
+          <ion-icon class="search-icon" name="search-outline"></ion-icon>
+          <input
+            class="search-bar"
+            type="text"
+            placeholder="Search for a country..."
+          />
+        </div>
+        <select name="Countries" class="select-region">
+          <option value="All" selected="selected">All</option>
+          <option value="Africa">Africa</option>
+          <option value="Americas">America</option>
+          <option value="Asia">Asia</option>
+          <option value="Europe">Europe</option>
+          <option value="Oceania">Oceania</option>
+        </select>
+      </section>
+
+      <section class="countries">
+        <!-- <a href="#" class="country-card">
+          <div class="country-flag"><img src="" alt="Country Flag" /></div>
+          <div class="country-details">
+            <h3 class="country-name">Country Name</h3>
+            <h4>Population: <span></span></h4>
+            <h4>Region: <span></span></h4>
+            <h4>Capital: <span></span></h4>
+          </div>
+        </a> -->
+      </section>
+    </main>
+  </body>
+</html>
