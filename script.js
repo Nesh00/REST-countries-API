@@ -7,6 +7,10 @@ const countriesContainer = document.querySelector('.countries');
 const region = document.querySelector('.select-region');
 const searchBar = document.querySelector('.search-bar');
 
+const countriesAllAPI = 'https://restcountries.eu/rest/v2/all';
+const countriesByRegionAPI = 'https://restcountries.eu/rest/v2/region/';
+const countriesByNameAPI = 'https://restcountries.eu/rest/v2/name/';
+
 // Color theme
 const changeThemeBtn = function () {
   if (document.documentElement.className === 'theme-light') {
@@ -53,71 +57,35 @@ const renderCountry = function (data) {
   countriesContainer.insertAdjacentHTML('beforeend', html);
 };
 
-// API's
-const getAllCountries = async function () {
+// API
+const getCountries = async function (url, regionOrName = '') {
   try {
-    const response = await fetch('https://restcountries.eu/rest/v2/all');
+    const response = await fetch(`${url}${regionOrName}`);
 
-    if (!response.ok) return;
+    if (!response.ok) throw new Error(console.error('WRONG INPUT'));
     const data = await response.json();
 
     countriesContainer.textContent = '';
     data.forEach(country => {
       renderCountry(country);
     });
-  } catch {
-    console.log('error');
-  }
-};
-
-const getCountryByRegion = async function (countryRegion) {
-  try {
-    const response = await fetch(
-      `https://restcountries.eu/rest/v2/region/${countryRegion}`
-    );
-
-    if (!response.ok) return;
-    const data = await response.json();
-
-    countriesContainer.textContent = '';
-    data.forEach(country => {
-      renderCountry(country);
-    });
-  } catch {
-    throw new Error(console.error('WRONG INPUT'));
-  }
-};
-
-const getCountryByName = async function (countryName) {
-  try {
-    const response = await fetch(
-      `https://restcountries.eu/rest/v2/name/${countryName}`
-    );
-
-    if (!response.ok) return;
-    const data = await response.json();
-
-    countriesContainer.textContent = '';
-    data.forEach(country => {
-      renderCountry(country);
-    });
-  } catch {
-    console.log('error');
+  } catch (err) {
+    console.log(`${err.message}`);
   }
 };
 
 // Select-options EVENT
 region.addEventListener('change', function (event) {
   event.target.value === 'All'
-    ? getAllCountries()
-    : getCountryByRegion(event.target.value);
+    ? getCountries(countriesAllAPI)
+    : getCountries(countriesByRegionAPI, event.target.value);
 });
 
 // Search-Bar EVENT
-searchBar.addEventListener('keyup', function (e) {
-  e.target.value.length === 0
-    ? getAllCountries()
-    : getCountryByName(e.target.value);
+searchBar.addEventListener('keyup', function (event) {
+  event.target.value.length === 0
+    ? getCountries(countriesAllAPI)
+    : getCountries(countriesByNameAPI, event.target.value);
 });
 
 // INIT
@@ -127,5 +95,5 @@ searchBar.addEventListener('keyup', function (e) {
     : setTheme('theme-light');
 
   changeThemeBtn();
-  getAllCountries();
+  getCountries(countriesAllAPI);
 })();
