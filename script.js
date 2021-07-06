@@ -8,6 +8,7 @@ const countriesContainer = document.querySelector('.countries');
 const searchContainer = document.querySelector('.search-container');
 const region = document.querySelector('.select-region');
 const searchBar = document.querySelector('.search-bar');
+const clearSearchBtn = document.querySelector('.search-clear');
 
 const allAPI_URL = 'https://restcountries.eu/rest/v2/all';
 const byRegionAPI_URL = 'https://restcountries.eu/rest/v2/region/';
@@ -39,18 +40,21 @@ const toggleTheme = function () {
 
 themeBtn.addEventListener('click', toggleTheme);
 
-// HTML Markup
+// Format Numbers
+const convertNumbers = population => {
+  return new Intl.NumberFormat(navigator.language).format(population);
+};
+
+// Main Page Markup
 const renderCountry = function (country) {
   const html = `
         <a href="${decodeURI(country.name)}" class="country-card">
-            <div class="country-flag"><img src="${
-              country.flag
-            }" alt="Country Flag" /></div>
+        <img class="country-flag" src="${country.flag}" alt="Country Flag" />
             <div class="country-details">
                 <h3 class="country-name">${country.name}</h3>
-                <h4>Population: <span>${new Intl.NumberFormat(
-                  navigator.language
-                ).format(country.population)}</span></h4>
+                <h4>Population: <span>${convertNumbers(
+                  country.population
+                )}</span></h4>
                 <h4>Region: <span>${country.region}</span></h4>
                 <h4>Capital: <span>${country.capital}</span></h4>
             </div>
@@ -58,6 +62,7 @@ const renderCountry = function (country) {
 
   countriesContainer.insertAdjacentHTML('beforeend', html);
 };
+
 // API
 const getCountries = async function (url, regionOrName = '') {
   countriesContainer.textContent = '';
@@ -66,6 +71,7 @@ const getCountries = async function (url, regionOrName = '') {
     const data = await response.json();
 
     if (!response.ok) throw new Error(`${data.message} (${response.status})`);
+
     data.forEach(country => {
       renderCountry(country);
     });
@@ -73,6 +79,12 @@ const getCountries = async function (url, regionOrName = '') {
     console.log(err);
   }
 };
+
+clearSearchBtn.addEventListener('click', function () {
+  searchBar.value = '';
+  clearSearchBtn.classList.add('hidden');
+  getCountries(allAPI_URL);
+});
 
 // Select-options EVENT
 region.addEventListener('change', function (event) {
@@ -84,8 +96,9 @@ region.addEventListener('change', function (event) {
 // Search-Bar EVENT
 searchBar.addEventListener('keyup', function (event) {
   event.target.value.length === 0
-    ? getCountries(allAPI_URL)
-    : getCountries(byNameAPI_URL, event.target.value);
+    ? getCountries(allAPI_URL) && clearSearchBtn.classList.add('hidden')
+    : getCountries(byNameAPI_URL, event.target.value) &&
+      clearSearchBtn.classList.remove('hidden');
 });
 
 // INIT
@@ -98,10 +111,11 @@ searchBar.addEventListener('keyup', function (event) {
   getCountries(allAPI_URL);
 })();
 
+// Country MARKUP
 const renderFullCountryDetails = function (country) {
   const html = `
         <section class="full-details--section">
-              <a href="/" class="btn-return">
+              <a href="#" class="btn-return">
                 <ion-icon name="return-down-back"></ion-icon>
                 Back</a
               >
@@ -117,7 +131,9 @@ const renderFullCountryDetails = function (country) {
                   <div class="details-container">
                     <div class="details-container__box-1">
                       <h4>Native Name:<span> ${country.nativeName}</span></h4>
-                      <h4>Population:<span> ${country.population}</span></h4>
+                      <h4>Population:<span> ${convertNumbers(
+                        country.population
+                      )}</span></h4>
                       <h4>Region:<span> ${country.region}</span></h4>
                       <h4>Sub-Region:<span> ${country.subregion}</span></h4>
                       <h4>Capital:<span> ${country.capital}</span></h4>
@@ -153,16 +169,15 @@ const renderFullCountryDetails = function (country) {
   mainContainer.insertAdjacentHTML('beforeend', html);
 };
 
+// API
 const getFullCountries = async function (url, regionOrName = '') {
   try {
     const response = await fetch(`${url}${regionOrName}`);
     const data = await response.json();
 
     if (!response.ok) throw new Error(`${data.message} (${response.status})`);
-    data.forEach(country => {
-      renderFullCountryDetails(country);
-    });
-    console.log(data);
+
+    renderFullCountryDetails(...data);
   } catch (err) {
     console.log(err);
   }
@@ -171,9 +186,13 @@ const getFullCountries = async function (url, regionOrName = '') {
 // Card EVENT
 countriesContainer.addEventListener('click', function (event) {
   event.preventDefault();
-  if (event.target.closest('.country-card')) {
+  const selectedCountry = event.target.closest('.country-card');
+  const selectedCountryName =
+    selectedCountry.querySelector('.country-name').textContent;
+
+  if (selectedCountry) {
     mainContainer.textContent = '';
-    getFullCountries(allAPI_URL);
+    getFullCountries(byNameAPI_URL, selectedCountryName);
   }
 });
 
