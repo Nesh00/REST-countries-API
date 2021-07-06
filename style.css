@@ -158,7 +158,6 @@ option {
 
 .country-card {
   height: 22rem;
-  /* width: 22.7%; */
   width: 15.2rem;
   background: var(--elements-bg);
   border-radius: 0.3rem;
@@ -173,6 +172,7 @@ option {
 
 .country-flag {
   max-width: 100%;
+  width: 100%;
   max-height: 50%;
   border-radius: 0.3rem 0.3rem 0 0;
 }
