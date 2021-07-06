@@ -27,14 +27,14 @@ Users should be able to:
 
 ### Screenshot
 
-![](./desktop-design-home-dark.png)
-![](./desktop-design-home-light.png)
-![](./desktop-design-detail-dark.png)
-![](./desktop-design-detail-light.png)
-![](./mobile-design-home-dark.png)
-![](./mobile-design-home-light.png)
-![](./mobile-design-detail-dark.png)
-![](./mobile-design-detail-light.png)
+![](./design/desktop-design-home-dark.png)
+![](./design/desktop-design-home-light.png)
+![](./design/desktop-design-detail-dark.png)
+![](./design/desktop-design-detail-light.png)
+![](./design/mobile-design-home-dark.png)
+![](./design/mobile-design-home-light.png)
+![](./design/mobile-design-detail-dark.png)
+![](./design/mobile-design-detail-light.png)
 
 ### Links
 
