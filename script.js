@@ -25,11 +25,13 @@ const changeThemeBtn = function () {
   }
 };
 
+// Store theme
 const setTheme = function (themeName) {
   localStorage.setItem('theme', themeName);
   document.documentElement.className = themeName;
 };
 
+// Use theme
 const toggleTheme = function () {
   localStorage.getItem('theme') === 'theme-dark'
     ? setTheme('theme-light')
@@ -38,6 +40,7 @@ const toggleTheme = function () {
   changeThemeBtn();
 };
 
+// Theme Button EVENT
 themeBtn.addEventListener('click', toggleTheme);
 
 // Format Numbers
@@ -80,6 +83,7 @@ const getCountries = async function (url, regionOrName = '') {
   }
 };
 
+// Clear Input Button EVENT
 clearSearchBtn.addEventListener('click', function () {
   searchBar.value = '';
   clearSearchBtn.classList.add('hidden');
@@ -115,7 +119,7 @@ searchBar.addEventListener('keyup', function (event) {
 const renderFullCountryDetails = function (country) {
   const html = `
         <section class="full-details--section">
-              <a href="#" class="btn-return">
+              <a href="/" class="btn-return">
                 <ion-icon name="return-down-back"></ion-icon>
                 Back</a
               >
