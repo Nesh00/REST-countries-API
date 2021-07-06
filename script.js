@@ -51,7 +51,7 @@ const convertNumbers = population => {
 // Main Page Markup
 const renderCountry = function (country) {
   const html = `
-        <a href="${decodeURI(country.name)}" class="country-card">
+        <a href="/" class="country-card">
         <img class="country-flag" src="${country.flag}" alt="Country Flag" />
             <div class="country-details">
                 <h3 class="country-name">${country.name}</h3>
