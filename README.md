@@ -1,20 +1,16 @@
-# Frontend Mentor - REST Countries API with color theme switcher solution
-
-This is a solution to the [REST Countries API with color theme switcher challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
+# REST Countries API with color theme switcher
 
 ## Table of contents
 
 - [Overview](#overview)
   - [The challenge](#the-challenge)
+  - - [Links](#links)
   - [Screenshot](#screenshot)
-  - [Links](#links)
 - [My process](#my-process)
   - [Built with](#built-with)
 - [Author](#author)
 
 ## Overview
-
-### The challenge
 
 Users should be able to:
 
@@ -24,6 +20,11 @@ Users should be able to:
 - Click on a country to see more detailed information on a separate page
 - Click through to the border countries on the detail page
 - Toggle the color scheme between light and dark mode _(optional)_
+
+### Links
+
+- GitHub URL: https://github.com/Nesh00/REST-countries-API
+- Live Site URL: https://rest-countries-api-nenad.netlify.app/
 
 ### Screenshot
 
@@ -35,10 +36,6 @@ Users should be able to:
 ![](./design/mobile-design-home-light.png)
 ![](./design/mobile-design-detail-dark.png)
 ![](./design/mobile-design-detail-light.png)
-
-### Links
-
-- Live Site URL: https://rest-countries-api-nenad.netlify.app/
 
 ## My process
 
@@ -53,5 +50,5 @@ Users should be able to:
 
 ## Author
 
-- Frontend Mentor - https://www.frontendmentor.io/profile/Nesh00
+- LinkedIn - https://www.linkedin.com/in/nenad-tsvetanovski-3101b474/
 - Twitter - https://twitter.com/nenad37452460

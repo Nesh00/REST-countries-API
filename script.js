@@ -51,7 +51,7 @@ const convertNumbers = population => {
 // Main Page Markup
 const renderCountry = function (country) {
   const html = `
-        <a href="/" class="country-card">
+        <a href="#" class="country-card">
         <img class="country-flag" src="${country.flag}" alt="Country Flag" />
             <div class="country-details">
                 <h3 class="country-name">${country.name}</h3>
@@ -119,7 +119,7 @@ searchBar.addEventListener('keyup', function (event) {
 const renderFullCountryDetails = function (country) {
   const html = `
         <section class="full-details--section">
-              <a href="/" class="btn-return">
+              <a href="#" class="btn-return">
                 <ion-icon name="return-down-back"></ion-icon>
                 Back</a
               >
