@@ -10,9 +10,9 @@ const region = document.querySelector('.select-region');
 const searchBar = document.querySelector('.search-bar');
 const clearSearchBtn = document.querySelector('.search-clear');
 
-const allAPI_URL = 'https://restcountries.eu/rest/v2/all';
-const byRegionAPI_URL = 'https://restcountries.eu/rest/v2/region/';
-const byNameAPI_URL = 'https://restcountries.eu/rest/v2/name/';
+const allAPI_URL = 'https://restcountries.com/v2/all';
+const byRegionAPI_URL = 'https://restcountries.com/v2/continent/';
+const byNameAPI_URL = 'https://restcountries.com/v2/name/';
 
 // Color theme
 const changeThemeBtn = function () {
@@ -51,7 +51,7 @@ const convertNumbers = population => {
 // Main Page Markup
 const renderCountry = function (country) {
   const html = `
-        <a href="#" class="country-card">
+        <a href="#${country.name}" class="country-card">
         <img class="country-flag" src="${country.flag}" alt="Country Flag" />
             <div class="country-details">
                 <h3 class="country-name">${country.name}</h3>
@@ -74,7 +74,6 @@ const getCountries = async function (url, regionOrName = '') {
     const data = await response.json();
 
     if (!response.ok) throw new Error(`${data.message} (${response.status})`);
-
     data.forEach(country => {
       renderCountry(country);
     });
@@ -95,6 +94,8 @@ region.addEventListener('change', function (event) {
   event.target.value === 'All'
     ? getCountries(allAPI_URL)
     : getCountries(byRegionAPI_URL, event.target.value);
+  searchBar.value = '';
+  clearSearchBtn.classList.add('hidden');
 });
 
 // Search-Bar EVENT
@@ -103,6 +104,7 @@ searchBar.addEventListener('keyup', function (event) {
     ? getCountries(allAPI_URL) && clearSearchBtn.classList.add('hidden')
     : getCountries(byNameAPI_URL, event.target.value) &&
       clearSearchBtn.classList.remove('hidden');
+  region.value = 'All';
 });
 
 // INIT
@@ -139,8 +141,8 @@ const renderFullCountryDetails = function (country) {
                         country.population
                       )}</span></h4>
                       <h4>Region:<span> ${country.region}</span></h4>
-                      <h4>Sub-Region:<span> ${country.subregion}</span></h4>
                       <h4>Capital:<span> ${country.capital}</span></h4>
+                      <h4>Sub-Region:<span> ${country.subregion}</span></h4>
                     </div>
                     <div>
                       <h4>Top Level Domain:<span> ${
@@ -180,7 +182,6 @@ const getFullCountries = async function (url, regionOrName = '') {
     const data = await response.json();
 
     if (!response.ok) throw new Error(`${data.message} (${response.status})`);
-
     renderFullCountryDetails(...data);
   } catch (err) {
     console.log(err);
